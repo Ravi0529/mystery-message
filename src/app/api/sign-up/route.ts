@@ -9,6 +9,7 @@ export const POST = async (req: Request) => {
   try {
     const { username, email, password } = await req.json();
 
+    // existing user with the same username and verified
     const existingUserVerifiedByUsername = await UserModel.findOne({
       username,
       isVerified: true,
@@ -26,6 +27,9 @@ export const POST = async (req: Request) => {
       );
     }
 
+    // existing user with the same email
+    // if the user is not verified, we will update the password and send a new verification email
+    // else we will return an error message
     const existingUserByEmail = await UserModel.findOne({ email });
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -92,7 +96,7 @@ export const POST = async (req: Request) => {
           "User registered successfully. Please verify your email address",
       },
       {
-        status: 500,
+        status: 200,
       }
     );
   } catch (error) {
