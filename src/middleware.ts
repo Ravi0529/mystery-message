@@ -7,15 +7,20 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
 
   if (
-    (token && url.pathname.startsWith("/sign-in")) ||
-    url.pathname.startsWith("/sign-up") ||
-    url.pathname.startsWith("/verify") ||
-    url.pathname.startsWith("/")
+    token &&
+    (url.pathname.startsWith("/sign-in") ||
+      url.pathname.startsWith("/sign-up") ||
+      url.pathname.startsWith("/verify") ||
+      url.pathname === "/")
   ) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
-  return NextResponse.redirect(new URL("/home", req.url));
+  if (!token && url.pathname.startsWith("/dashboard")) {
+    return NextResponse.redirect(new URL("/sign-in", req.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
