@@ -24,16 +24,16 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 export default function SignUpForm() {
-  const [username, setUsername] = useState("");
-  const [usernameMessage, setUsernameMessage] = useState(""); // message returned from the server
-  const [isCheckingUsername, setIsCheckingUsername] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [username, setUsername] = useState(""); // Stores the value of username field and used in debouncing callback
+  const [usernameMessage, setUsernameMessage] = useState(""); // stores the message returned from the server ("Username already taken, etc.")
+  const [isCheckingUsername, setIsCheckingUsername] = useState(false); // checking username unique
+  const [isSubmitting, setIsSubmitting] = useState(false); // tracks whether the form is submitted or not
 
   const debounced = useDebounceCallback(setUsername, 300); // using this we'll fire the request to the server
 
   const router = useRouter();
 
-  // zod implementation
+  // zod implementation ---> part of shadcn UI
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {

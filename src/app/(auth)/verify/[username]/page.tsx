@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 
 export default function VerifyAccount() {
   const router = useRouter();
-  const params = useParams<{ username: string }>();
+  const params = useParams<{ username: string }>(); // for taking the username from the parameter
 
   const form = useForm<z.infer<typeof verifySchema>>({
     resolver: zodResolver(verifySchema),
