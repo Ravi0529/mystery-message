@@ -28,7 +28,7 @@ export const GET = async (req: Request) => {
           message:
             usernameErrors?.length > 0
               ? usernameErrors.join(", ")
-              : "Invalid query parameters",
+              : "Username must be atleast of 2 characters.",
         },
         {
           status: 400,
