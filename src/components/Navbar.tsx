@@ -14,7 +14,7 @@ export default function Navbar() {
     <nav className="p-2 md:p-6 shadow-md">
       <div className="mx-auto flex flex-col md:flex-row justify-between items-center">
         <a href="#" className="text-xl font-bold mb-2 md:mb-0">
-          Mystry Message
+          Mystery Message
         </a>
         {session ? (
           <>

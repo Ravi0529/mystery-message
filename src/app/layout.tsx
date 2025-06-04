@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mystry Message",
+  title: "Mystery Message",
   description: "Start your anonymous adventure",
 };
 
