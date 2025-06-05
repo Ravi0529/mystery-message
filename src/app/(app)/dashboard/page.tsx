@@ -34,14 +34,14 @@ export default function Dashboard() {
 
   const { register, watch, setValue } = form;
 
-  const acceptMessages = watch("acceptMessages");
+  const acceptMessages = watch("acceptMessages"); // Continueously moniter the value of "acceptMessages"
 
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
 
     try {
       const response = await axios.get<ApiResponse>(`/api/accept-messages`);
-      setValue("acceptMessages", response.data.isAcceptingMessage);
+      setValue("acceptMessages", response.data.isAcceptingMessage); // if server sends that user is accepting the messages then On else Off, not manually toggling
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.message("Error", {
@@ -96,7 +96,7 @@ export default function Dashboard() {
         acceptMessages: !acceptMessages,
       });
 
-      setValue("acceptMessages", !acceptMessages);
+      setValue("acceptMessages", !acceptMessages); // Manually toggling the switch value stored in "setValue"
       toast(response.data.message);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -142,7 +142,7 @@ export default function Dashboard() {
 
       <div className="mb-4">
         <Switch
-          {...register("acceptMessages")}
+          {...register("acceptMessages")} // register is used to connect a switch field to the form's state and validation system
           checked={acceptMessages}
           onCheckedChange={handleSwitchChange}
           disabled={isSwitchLoading}
