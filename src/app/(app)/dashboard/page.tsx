@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { LogIn } from "lucide-react";
 
 export default function Dashboard() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
     try {
       const response = await axios.get<ApiResponse>(`/api/accept-messages`);
-      setValue("acceptMessages", response.data.isAcceptingMessage); // if server sends that user is accepting the messages then On else Off, not manually toggling
+      setValue("acceptMessages", response.data.isAcceptingMessage ?? true); // if server sends that user is accepting the messages then On else Off, not manually toggling
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.message("Error", {
@@ -108,6 +109,20 @@ export default function Dashboard() {
     }
   };
 
+  if (!session || !session.user) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <LogIn className="w-16 h-16 text-gray-400 mb-4" />
+        <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+          You're not logged in
+        </h2>
+        <p className="text-gray-500 mb-4">
+          Please log in to access your dashboard and manage your messages.
+        </p>
+      </div>
+    );
+  }
+
   const { username } = session?.user as User;
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -118,10 +133,6 @@ export default function Dashboard() {
       description: "Profile URL has been copied to clipboard.",
     });
   };
-
-  if (!session || !session.user) {
-    return <div>Please login</div>;
-  }
 
   return (
     <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
