@@ -28,7 +28,7 @@ export const POST = async (req: Request) => {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
-      { isAcceptingMessage: acceptMessages },
+      { isAcceptingMessages: acceptMessages },
       { new: true }
     );
 
@@ -106,7 +106,7 @@ export const GET = async (req: Request) => {
       {
         success: true,
         message: "User settings fetched successfully",
-        isAcceptingMessage: foundUser.isAcceptingMessage,
+        isAcceptingMessages: foundUser.isAcceptingMessage,
       },
       {
         status: 200,
