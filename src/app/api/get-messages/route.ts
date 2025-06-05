@@ -5,7 +5,7 @@ import UserModel from "@/model/User";
 import { User } from "next-auth";
 import mongoose from "mongoose";
 
-export const GET = async (req: Request) => {
+export const GET = async () => {
   await dbConnect();
 
   const session = await getServerSession(authOptions);

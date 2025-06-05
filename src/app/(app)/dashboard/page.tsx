@@ -114,7 +114,7 @@ export default function Dashboard() {
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
         <LogIn className="w-16 h-16 text-gray-400 mb-4" />
         <h2 className="text-2xl font-semibold text-gray-700 mb-2">
-          You're not logged in
+          You are not logged in
         </h2>
         <p className="text-gray-500 mb-4">
           Please log in to access your dashboard and manage your messages.
@@ -180,7 +180,7 @@ export default function Dashboard() {
       </Button>
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
         {messages.length > 0 ? (
-          messages.map((message, index) => (
+          messages.map((message) => (
             <MessageCard
               key={message._id as string}
               message={message}
