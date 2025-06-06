@@ -20,8 +20,8 @@ const dbConnect = async (): Promise<void> => {
 
     connection.isConnected = db.connections[0].readyState; // optional
 
-    console.log(db);
-    console.log(db.connections);
+    // console.log(db);
+    // console.log(db.connections);
 
     console.log("DB Connection Successfully");
   } catch (error) {

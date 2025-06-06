@@ -52,7 +52,6 @@ export default function SignUpForm() {
           const response = await axios.get(
             `/api/check-username-unique?username=${username}`
           );
-          // console.log(response)
           setUsernameMessage(response.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
@@ -70,7 +69,6 @@ export default function SignUpForm() {
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
     try {
-      // console.log(data);
       const response = await axios.post<ApiResponse>(`/api/sign-up`, data);
       toast.message("Success", {
         description: response.data.message,

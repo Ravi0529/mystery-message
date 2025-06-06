@@ -55,7 +55,7 @@ export const DELETE = async (
       }
     );
   } catch (error) {
-    console.log("Error in delete message route: ", error);
+    console.error("Error in delete message route: ", error);
     return Response.json(
       {
         success: false,

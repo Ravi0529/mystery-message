@@ -36,7 +36,6 @@ export default function SignInForm() {
       identifier: data.identifier,
       password: data.password,
     });
-    console.log(result);
 
     if (result?.error) {
       if (result.error === "CredentialsSignin") {
