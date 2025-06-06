@@ -18,12 +18,14 @@ export const sendVerificationEmail = async (
     return {
       success: true,
       message: "Verification email sent successfully",
+      isAcceptingMessage: true,
     };
   } catch (emailError) {
     console.error("Error sending verification email", emailError);
     return {
       success: false,
       message: "Failed to send verification email",
+      isAcceptingMessage: false,
     };
   }
 };
