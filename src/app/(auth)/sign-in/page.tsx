@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Mail, Lock, LogIn } from "lucide-react";
 
 export default function SignInForm() {
   const router = useRouter();
@@ -55,27 +56,39 @@ export default function SignInForm() {
   return (
     <>
       <Toaster expand={true} />
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="w-full max-w-md p-6 md:p-8 space-y-6 md:space-y-8 bg-white rounded-xl shadow-2xl mx-4">
           <div className="text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-              Welcome Back to True Feedback
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight text-black mb-4">
+              Welcome Back to Mystery Message
             </h1>
-            <p className="mb-4">
+            <p className="text-gray-600 text-sm md:text-base">
               Sign in to continue your secret conversations
             </p>
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4 md:space-y-6"
+            >
               <FormField
                 name="identifier"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email/Username</FormLabel>
-                    <Input {...field} />
-                    <FormMessage />
+                    <FormLabel className="text-sm font-medium text-gray-900">
+                      Email/Username
+                    </FormLabel>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        placeholder="Enter your email or username"
+                        {...field}
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                      />
+                    </div>
+                    <FormMessage className="text-red-500 text-sm" />
                   </FormItem>
                 )}
               />
@@ -85,22 +98,38 @@ export default function SignInForm() {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <Input type="password" {...field} />
-                    <FormMessage />
+                    <FormLabel className="text-sm font-medium text-gray-900">
+                      Password
+                    </FormLabel>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        {...field}
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                      />
+                    </div>
+                    <FormMessage className="text-red-500 text-sm" />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Sign In</Button>
+              <Button
+                type="submit"
+                className="w-full bg-black hover:bg-gray-900 text-white font-medium py-2.5 transition-colors duration-200"
+              >
+                <LogIn className="mr-2 h-5 w-5" />
+                Sign In
+              </Button>
             </form>
           </Form>
 
-          <div className="text-center mt-4">
-            <p>
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-600">
               Not a member yet?{" "}
               <Link
                 href="/sign-up"
-                className="text-blue-600 hover:text-blue-800"
+                className="text-black hover:text-gray-700 font-medium underline-offset-4 hover:underline transition-colors duration-200"
               >
                 Sign up
               </Link>

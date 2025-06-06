@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Mail, Lock, UserPlus } from "lucide-react";
 
 export default function SignUpForm() {
   const [username, setUsername] = useState(""); // Stores the value of username field and used in debouncing callback
@@ -90,40 +90,57 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md p-6 md:p-8 space-y-6 md:space-y-8 bg-white rounded-xl shadow-2xl mx-4">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-black mb-4">
             Join Mystery Message
           </h1>
-          <p className="mb-4">Sign up to start your Anonymous Adventure.</p>
+          <p className="text-gray-600 text-sm md:text-base">
+            Sign up to start your Anonymous Adventure
+          </p>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 md:space-y-6"
+          >
             <FormField
               name="username"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel className="text-sm font-medium text-gray-900">
+                    Username
+                  </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="username"
-                      {...field}
-                      onChange={(e) => {
-                        field.onChange(e);
-                        debounced(e.target.value);
-                      }}
-                    />
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        placeholder="Enter your username"
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                        {...field}
+                        onChange={(e) => {
+                          field.onChange(e);
+                          debounced(e.target.value);
+                        }}
+                      />
+                    </div>
                   </FormControl>
-                  {isCheckingUsername && <Loader2 className="animate-spin" />}
+                  {isCheckingUsername && (
+                    <Loader2 className="animate-spin h-4 w-4 text-gray-500 mt-2" />
+                  )}
                   <p
-                    className={`text-sm ${usernameMessage === "Username is unique." ? "text-green-500" : "text-red-500"}`}
+                    className={`text-sm ${
+                      usernameMessage === "Username is unique."
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
                   >
                     {usernameMessage}
                   </p>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 text-sm" />
                 </FormItem>
               )}
             />
@@ -133,11 +150,20 @@ export default function SignUpForm() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-sm font-medium text-gray-900">
+                    Email
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field} />
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        placeholder="Enter your email"
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 text-sm" />
                 </FormItem>
               )}
             />
@@ -147,30 +173,49 @@ export default function SignUpForm() {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-sm font-medium text-gray-900">
+                    Password
+                  </FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="password" {...field} />
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password"
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 text-sm" />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-black hover:bg-gray-900 text-white font-medium py-2.5 transition-colors duration-200"
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
                 </>
               ) : (
-                "Sign Up"
+                <>
+                  <UserPlus className="mr-2 h-5 w-5" /> Sign Up
+                </>
               )}
             </Button>
           </form>
         </Form>
-        <div className="text-center mt-4">
-          <p>
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-600">
             Already a member?{" "}
-            <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+            <Link
+              href="/sign-in"
+              className="text-black hover:text-gray-700 font-medium underline-offset-4 hover:underline transition-colors duration-200"
+            >
               Sign in
             </Link>
           </p>

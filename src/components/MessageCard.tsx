@@ -16,7 +16,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { X } from "lucide-react";
+import { X, MessageSquare, Clock } from "lucide-react";
 import { Message } from "@/model/User";
 import { toast } from "sonner";
 import axios from "axios";
@@ -40,16 +40,25 @@ export default function MessageCard({
   };
 
   return (
-    <Card className="shadow-md border border-gray-200 rounded-xl p-4 bg-gray-50">
-      <CardHeader className="pb-2 relative">
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-lg font-semibold text-gray-800">
+    <Card className="group relative bg-white hover:bg-gray-50 transition-all duration-200 border border-gray-200 rounded-xl overflow-hidden">
+      <CardHeader className="p-3 sm:p-4">
+        <div className="flex items-start gap-3">
+          <div className="flex-shrink-0 mt-1">
+            <div className="p-2 bg-gray-100 rounded-lg group-hover:bg-gray-200 transition-colors duration-200">
+              <MessageSquare className="w-5 h-5 text-gray-600" />
+            </div>
+          </div>
+
+          <div className="flex-grow min-w-0 space-y-1">
+            <CardTitle className="text-base sm:text-lg font-medium text-gray-900 line-clamp-2">
               {message.content}
             </CardTitle>
-            <CardDescription className="text-sm text-gray-500 mt-1">
-              {new Date(message.createdAt).toLocaleString()}
-            </CardDescription>
+            <div className="flex items-center gap-2 text-gray-500">
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+              <CardDescription className="text-xs sm:text-sm">
+                {new Date(message.createdAt).toLocaleString()}
+              </CardDescription>
+            </div>
           </div>
 
           <AlertDialog>
@@ -57,23 +66,27 @@ export default function MessageCard({
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-red-500 hover:bg-red-100"
+                className="flex-shrink-0 h-8 w-8 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all duration-200 rounded-full"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="sm:max-w-md">
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete Message?</AlertDialogTitle>
-                <AlertDialogDescription>
+                <AlertDialogTitle className="text-lg sm:text-xl font-semibold text-gray-900">
+                  Delete Message?
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-sm sm:text-base text-gray-600">
                   This will permanently delete the message. You cannot undo this
                   action.
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogFooter className="gap-2 sm:gap-3">
+                <AlertDialogCancel className="mt-0 border-gray-200 hover:bg-gray-50">
+                  Cancel
+                </AlertDialogCancel>
                 <AlertDialogAction
-                  className="bg-red-600 hover:bg-red-700 text-white"
+                  className="bg-black hover:bg-gray-900 text-white transition-colors duration-200"
                   onClick={handleDeleteConfirm}
                 >
                   Delete

@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { KeyRound } from "lucide-react";
 
 export default function VerifyAccount() {
   const router = useRouter();
@@ -53,33 +54,50 @@ export default function VerifyAccount() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md p-6 md:p-8 space-y-6 md:space-y-8 bg-white rounded-xl shadow-2xl mx-4">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-black mb-4">
             Verify Your Account
           </h1>
-          <p className="mb-4">
-            Enter the verification code sent to your email.
+          <p className="text-gray-600 text-sm md:text-base">
+            Enter the verification code sent to your email
           </p>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 md:space-y-6"
+          >
             <FormField
               name="code"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Verification Code</FormLabel>
+                  <FormLabel className="text-sm font-medium text-gray-900">
+                    Verification Code
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="code" {...field} />
+                    <div className="relative">
+                      <KeyRound className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                      <Input
+                        placeholder="Enter verification code"
+                        {...field}
+                        className="pl-10 border-gray-300 focus:border-black focus:ring-black"
+                      />
+                    </div>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500 text-sm" />
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              className="w-full bg-black hover:bg-gray-900 text-white font-medium py-2.5 transition-colors duration-200"
+            >
+              Verify Account
+            </Button>
           </form>
         </Form>
       </div>
